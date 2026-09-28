@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Drive | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <p class="eyebrow">Drive details</p><h1 th:text="${drive == null ? 'Create a drive' : 'Edit drive'}">Create a drive</h1>
+    <section class="panel form-panel" style="margin-top:22px"><form method="post" th:action="${drive == null ? '/drives' : '/drives/' + drive.id}">
+        <div class="form-grid"><label>Drive name<input name="name" required maxlength="120" th:value="${drive == null ? '' : drive.name}"></label><label>Location<input name="location" required maxlength="200" th:value="${drive == null ? '' : drive.location}"></label><label>Drive date<input name="driveDate" type="date" required th:value="${drive == null ? '' : drive.driveDate}"></label><label>Check-in interval (days)<input name="checkInIntervalDays" type="number" min="1" value="30" th:value="${drive == null ? 30 : drive.checkInIntervalDays}"></label></div>
+        <div class="form-actions"><button class="button" type="submit" th:text="${drive == null ? 'Create drive' : 'Save changes'}">Save</button><a class="button secondary" th:href="@{/drives}">Cancel</a></div>
+    </form></section>
+</main></body></html>

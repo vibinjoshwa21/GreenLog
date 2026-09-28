@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tree | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <p class="eyebrow">Planting details</p><h1 th:text="${tree == null ? 'Record a tree' : 'Edit tree'}">Record a tree</h1>
+    <section class="panel form-panel" style="margin-top:22px"><form method="post" th:action="${tree == null ? '/trees' : '/trees/' + tree.id}">
+        <div class="form-grid"><label>Species<input name="species" required maxlength="100" th:value="${tree == null ? '' : tree.species}"></label><label>Location<input name="location" required maxlength="200" th:value="${tree == null ? '' : tree.location}"></label><label>Date planted<input name="datePlanted" type="date" required th:value="${tree == null ? '' : tree.datePlanted}"></label><label>Plantation drive<select name="driveId" required><option value="">Choose a drive</option><option th:each="drive : ${drives}" th:value="${drive.id}" th:text="${drive.name}" th:selected="${tree != null and tree.driveId == drive.id}"></option></select></label><label>Planted by<select name="plantedByVolunteerId" required><option value="">Choose a volunteer</option><option th:each="volunteer : ${volunteers}" th:value="${volunteer.id}" th:text="${volunteer.name}" th:selected="${tree != null and tree.plantedByVolunteerId == volunteer.id}"></option></select></label></div>
+        <div class="form-actions"><button class="button" type="submit" th:text="${tree == null ? 'Save tree' : 'Save changes'}">Save</button><a class="button secondary" th:href="@{/trees}">Cancel</a></div>
+    </form></section>
+</main></body></html>

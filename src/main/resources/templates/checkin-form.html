@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Check-in details | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <p class="eyebrow">Check-in correction</p><h1>Edit check-in details</h1><p class="subtext">Tree, status, and timestamp stay fixed to preserve the survival record.</p>
+    <section class="panel form-panel" style="margin-top:22px"><form method="post" th:action="@{/check-ins/{id}(id=${checkin.id})}">
+        <div class="form-grid"><label>Tree<input disabled th:value="${'#' + checkin.treeId}"></label><label>Status<input disabled th:value="${checkin.status}"></label><label>Checked at<input disabled th:value="${checkin.checkedInAt}"></label><label>Volunteer<select name="volunteerId" required><option th:each="volunteer : ${volunteers}" th:value="${volunteer.id}" th:text="${volunteer.name}" th:selected="${volunteer.id == checkin.volunteerId}"></option></select></label><label style="grid-column:1/-1">Notes<textarea name="notes" maxlength="1000" th:text="${checkin.notes}"></textarea></label></div>
+        <div class="form-actions"><button class="button" type="submit">Save details</button><a class="button secondary" th:href="@{/check-ins}">Cancel</a></div>
+    </form></section>
+</main></body></html>

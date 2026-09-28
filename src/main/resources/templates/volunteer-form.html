@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Volunteer | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <p class="eyebrow">Volunteer details</p><h1 th:text="${volunteer == null ? 'Add volunteer' : 'Edit volunteer'}">Add volunteer</h1>
+    <section class="panel form-panel" style="margin-top:22px"><form method="post" th:action="${volunteer == null ? '/volunteers' : '/volunteers/' + volunteer.id}">
+        <div class="form-grid"><label>Name<input name="name" required maxlength="120" th:value="${volunteer == null ? '' : volunteer.name}"></label><label>Email<input name="email" type="email" required maxlength="160" th:value="${volunteer == null ? '' : volunteer.email}"></label></div>
+        <div class="form-actions"><button class="button" type="submit" th:text="${volunteer == null ? 'Add volunteer' : 'Save changes'}">Save</button><a class="button secondary" th:href="@{/volunteers}">Cancel</a></div>
+    </form></section>
+</main></body></html>

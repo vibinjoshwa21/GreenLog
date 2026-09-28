@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Trees | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <div th:if="${success}" class="notice success" th:text="${success}"></div><div th:if="${error}" class="notice error" th:text="${error}"></div>
+    <div class="page-head"><div><p class="eyebrow">Planting records</p><h1>Trees</h1><p>Every planting location, linked to its drive and volunteer.</p></div><a class="button" th:href="@{/trees/new}">Record tree</a></div>
+    <section class="panel section"><div class="table-wrap"><table><thead><tr><th>Species</th><th>Location</th><th>Planted</th><th>Next check-in</th><th>Status</th><th>Drive</th><th>Actions</th></tr></thead><tbody>
+        <tr th:each="tree : ${trees}"><td th:text="${tree.species}">Species</td><td th:text="${tree.location}">Location</td><td th:text="${tree.datePlanted}">Date</td><td th:text="${tree.nextCheckInDate == null ? '—' : tree.nextCheckInDate}">Date</td><td><span class="status" th:classappend="${tree.status}" th:text="${tree.status}">UNKNOWN</span></td><td th:text="${tree.driveId}">Drive</td><td><div class="actions"><a class="button secondary small" th:href="@{/trees/{id}/edit(id=${tree.id})}">Edit</a><form method="post" th:action="@{/trees/{id}/delete(id=${tree.id})}"><button class="button danger small" type="submit">Delete</button></form></div></td></tr>
+        <tr th:if="${#lists.isEmpty(trees)}"><td colspan="7" class="empty">No trees recorded.</td></tr>
+    </tbody></table></div></section>
+</main></body></html>

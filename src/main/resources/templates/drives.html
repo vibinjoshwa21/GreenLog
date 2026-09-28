@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Drives | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <div th:if="${success}" class="notice success" th:text="${success}"></div><div th:if="${error}" class="notice error" th:text="${error}"></div>
+    <div class="page-head"><div><p class="eyebrow">Plantation records</p><h1>Drives</h1><p>Create drives and monitor survival rates.</p></div><a class="button" th:href="@{/drives/new}">New drive</a></div>
+    <section class="panel section"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Location</th><th>Drive date</th><th>Interval</th><th>Survival</th><th>Actions</th></tr></thead><tbody>
+        <tr th:each="drive : ${drives}"><td th:text="${drive.name}">Name</td><td th:text="${drive.location}">Location</td><td th:text="${drive.driveDate}">Date</td><td th:text="${drive.checkInIntervalDays + ' days'}">30 days</td><td class="rate" th:text="${drive.survivalRate + '%'}">0%</td><td><div class="actions"><a class="button secondary small" th:href="@{/drives/{id}/edit(id=${drive.id})}">Edit</a><form method="post" th:action="@{/drives/{id}/delete(id=${drive.id})}"><button class="button danger small" type="submit">Delete</button></form></div></td></tr>
+        <tr th:if="${#lists.isEmpty(drives)}"><td colspan="6" class="empty">No drives yet. Create one to start logging trees.</td></tr>
+    </tbody></table></div></section>
+</main></body></html>

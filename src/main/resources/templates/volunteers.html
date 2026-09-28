@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Volunteers | GreenLog</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div><main>
+    <div th:if="${success}" class="notice success" th:text="${success}"></div><div th:if="${error}" class="notice error" th:text="${error}"></div>
+    <div class="page-head"><div><p class="eyebrow">Community</p><h1>Volunteers</h1><p>Leaderboard ranked by trees planted.</p></div><a class="button" th:href="@{/volunteers/new}">Add volunteer</a></div>
+    <section class="panel section"><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Name</th><th>Email</th><th>Trees planted</th><th>Actions</th></tr></thead><tbody>
+        <tr th:each="volunteer, stat : ${volunteers}"><td th:text="${stat.count}">1</td><td th:text="${volunteer.name}">Name</td><td th:text="${volunteer.email}">Email</td><td th:text="${volunteer.treesPlanted}">0</td><td><div class="actions"><a class="button secondary small" th:href="@{/volunteers/{id}/edit(id=${volunteer.id})}">Edit</a><form method="post" th:action="@{/volunteers/{id}/delete(id=${volunteer.id})}"><button class="button danger small" type="submit">Delete</button></form></div></td></tr>
+        <tr th:if="${#lists.isEmpty(volunteers)}"><td colspan="5" class="empty">No volunteers yet.</td></tr>
+    </tbody></table></div></section>
+</main></body></html>

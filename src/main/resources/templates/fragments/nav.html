@@ -1,0 +1,10 @@
+<header class="topbar" th:fragment="navigation">
+    <a class="brand" th:href="@{/}"><span class="brand-mark">G</span><span>GreenLog</span></a>
+    <nav aria-label="Main navigation">
+        <a th:href="@{/}" th:classappend="${active == 'home'} ? ' active'">Overview</a>
+        <a th:href="@{/drives}" th:classappend="${active == 'drives'} ? ' active'">Drives</a>
+        <a th:href="@{/trees}" th:classappend="${active == 'trees'} ? ' active'">Trees</a>
+        <a th:href="@{/check-ins}" th:classappend="${active == 'check-ins'} ? ' active'">Check-ins</a>
+        <a th:href="@{/volunteers}" th:classappend="${active == 'volunteers'} ? ' active'">Volunteers</a>
+    </nav>
+</header>

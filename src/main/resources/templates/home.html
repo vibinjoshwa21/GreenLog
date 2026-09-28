@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GreenLog | Overview</title><link rel="stylesheet" th:href="@{/style.css}"></head>
+<body><div th:replace="~{fragments/nav :: navigation}"></div>
+<main>
+    <p class="eyebrow">Campus restoration log</p>
+    <div class="page-head"><div><h1>Planting, accounted for.</h1><p>Track every tree from planting day through its latest survival check.</p></div><a class="button" th:href="@{/trees/new}">Record a tree</a></div>
+    <section class="stats">
+        <article class="panel stat"><span>Plantation drives</span><strong th:text="${#lists.size(drives)}">0</strong></article>
+        <article class="panel stat"><span>Trees recorded</span><strong th:text="${#lists.size(trees)}">0</strong></article>
+        <article class="panel stat"><span>Volunteers</span><strong th:text="${#lists.size(volunteers)}">0</strong></article>
+        <article class="panel stat"><span>Check-ins due</span><strong th:text="${#lists.size(dueTrees)}">0</strong></article>
+    </section>
+    <div class="dashboard-grid">
+        <section class="panel section"><div class="section-head"><h2>Recent drives</h2><a th:href="@{/drives}">All drives</a></div>
+            <div class="table-wrap"><table><thead><tr><th>Drive</th><th>Location</th><th>Date</th><th>Survival</th></tr></thead><tbody>
+                <tr th:each="drive : ${drives}"><td th:text="${drive.name}">Drive</td><td th:text="${drive.location}">Location</td><td th:text="${drive.driveDate}">Date</td><td class="rate" th:text="${drive.survivalRate + '%'}">0%</td></tr>
+                <tr th:if="${#lists.isEmpty(drives)}"><td colspan="4" class="empty">No drives created yet.</td></tr>
+            </tbody></table></div>
+        </section>
+        <section class="panel section"><div class="section-head"><h2>Check-ins due</h2><a th:href="@{/check-ins}">View check-ins</a></div>
+            <div class="table-wrap"><table><thead><tr><th>Tree</th><th>Species</th><th>Due date</th></tr></thead><tbody>
+                <tr th:each="tree : ${dueTrees}"><td th:text="${'#' + tree.id}">#1</td><td th:text="${tree.species}">Species</td><td th:text="${tree.nextCheckInDate}">Date</td></tr>
+                <tr th:if="${#lists.isEmpty(dueTrees)}"><td colspan="3" class="empty">Nothing due today.</td></tr>
+            </tbody></table></div>
+        </section>
+    </div>
+</main></body></html>
